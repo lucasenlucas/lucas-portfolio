@@ -1,1 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Lucas Mangroelal</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="shortcut icon" href="https://i.postimg.cc/9fqYVvxh/logo.png" type="image/x-icon" />
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</head>
+<body>
+  <main>
+    <!-- Sidebar -->
+    <aside class="sidebar" data-sidebar>
+      <div class="sidebar-info">
+        <figure class="avatar-box">
+          <img src="https://i.postimg.cc/JzBWVhW4/my-avatar.png" alt="avatar" width="80" />
+        </figure>
+        <div class="info-content">
+          <h1 class="name">Lucas Mangroelal</h1>
+          <p class="title">Web Developer</p>
+        </div>
+        <button class="info-more-btn" data-sidebar-btn>
+          <span>Show Contacts</span>
+          <ion-icon name="chevron-down"></ion-icon>
+        </button>
+      </div>
 
+      <div class="sidebar-info-more">
+        <div class="separator"></div>
+        <ul class="contacts-list">
+          <li class="contact-item">
+            <div class="icon-box"><ion-icon name="mail-outline"></ion-icon></div>
+            <div class="contact-info">
+              <p class="contact-title">Email</p>
+              <a href="mailto:lucas@example.com" class="contact-link">lucas@example.com</a>
+            </div>
+          </li>
+          <li class="contact-item">
+            <div class="icon-box"><ion-icon name="phone-portrait-outline"></ion-icon></div>
+            <div class="contact-info">
+              <p class="contact-title">Phone</p>
+              <a href="tel:+31612345678" class="contact-link">+31 6 12345678</a>
+            </div>
+          </li>
+          <li class="contact-item">
+            <div class="icon-box"><ion-icon name="calendar-outline"></ion-icon></div>
+            <div class="contact-info">
+              <p class="contact-title">Birthday</p>
+              <time datetime="2010-01-01">Jan 1, 2010</time>
+            </div>
+          </li>
+          <li class="contact-item">
+            <div class="icon-box"><ion-icon name="location-outline"></ion-icon></div>
+            <div class="contact-info">
+              <p class="contact-title">Location</p>
+              <address>Nootdorp, Nederland</address>
+            </div>
+          </li>
+        </ul>
+
+        <div class="separator"></div>
+        <ul class="social-list">
+          <li class="social-item"><a href="#" class="social-link"><ion-icon name="logo-facebook"></ion-icon></a></li>
+          <li class="social-item"><a href="#" class="social-link"><ion-icon name="logo-twitter"></ion-icon></a></li>
+          <li class="social-item"><a href="#" class="social-link"><ion-icon name="logo-instagram"></ion-icon></a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- Main content -->
+    <div class="main-content">
+      <!-- Navigation -->
+      <nav class="navbar">
+        <ul class="navbar-list">
+          <li class="navbar-item"><a class="navbar-link active" href="index.html">About</a></li>
+          <li class="navbar-item"><a class="navbar-link" href="resume.html">Resume</a></li>
+          <li class="navbar-item"><a class="navbar-link" href="portfolio.html">Portfolio</a></li>
+          <li class="navbar-item"><a class="navbar-link" href="blog.html">Blog</a></li>
+          <li class="navbar-item"><a class="navbar-link" href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+
+      <!-- About me -->
+      <article class="about active">
+        <header>
+          <h2 class="h2 article-title">About me</h2>
+        </header>
+
+        <section class="about-text">
+          <p>
+            I'm Lucas, een creatieve developer uit Nederland. Ik werk aan webontwikkeling en educatieve tools.
+            Mijn kracht ligt in het combineren van speelse elementen met professionele functionaliteit.
+          </p>
+          <p>
+            Mijn doel is om ideeën tot leven te brengen met unieke UI/UX en technische betrouwbaarheid. Of het nu gaat om een
+            portfolio, educatieve website of zelfs een chatbot — ik zorg dat het werkt én er goed uitziet.
+          </p>
+        </section>
+
+        <section class="service">
+          <h3 class="h3 service-title">Wat ik doe</h3>
+          <ul class="service-list">
+            <li class="service-item">
+              <div class="service-icon-box">
+                <img src="https://i.postimg.cc/4389jZkP/icon-design.png" alt="icon" width="40">
+              </div>
+              <div class="service-content-box">
+                <h4 class="h4 service-item-title">Web Design</h4>
+                <p class="service-item-text">Unieke, moderne designs op professioneel niveau.</p>
+              </div>
+            </li>
+            <li class="service-item">
+              <div class="service-icon-box">
+                <img src="https://i.postimg.cc/ZqgqrqzG/icon-dev.png" alt="icon" width="40">
+              </div>
+              <div class="service-content-box">
+                <h4 class="h4 service-item-title">Web Development</h4>
+                <p class="service-item-text">Volledige weboplossingen met HTML, CSS, JS en Firebase.</p>
+              </div>
+            </li>
+            <li class="service-item">
+              <div class="service-icon-box">
+                <img src="https://i.postimg.cc/xjLdzYxZ/icon-app.png" alt="icon" width="40">
+              </div>
+              <div class="service-content-box">
+                <h4 class="h4 service-item-title">Apps & Tools</h4>
+                <p class="service-item-text">Bouw van tools voor scholen, games of chatbots.</p>
+              </div>
+            </li>
+          </ul>
+        </section>
+      </article>
+    </div>
+  </main>
+
+  <script src="main.js"></script>
+</body>
+</html>
