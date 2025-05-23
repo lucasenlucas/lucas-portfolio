@@ -1,104 +1,57 @@
-<!DOCTYPE html>
-<html lang="nl">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Blogoverzicht</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
-  <style>
-    :root {
-      --bg: #0e0e0e;
-      --card: #1c1c1c;
-      --accent: #4A90E2;
-      --text: #ffffff;
-      --muted: #aaaaaa;
-    }
+<article class="blog active" data-page="blog">
+  <header>
+    <h2 class="h2 article-title">Blog</h2>
+  </header>
 
-    body {
-      background-color: var(--bg);
-      color: var(--text);
-      font-family: 'Inter', sans-serif;
-      padding: 2rem;
-      margin: 0;
-    }
+  <section class="blog-posts">
+    <ul class="blog-posts-list" id="blog-list">
+      <!-- JavaScript vult dit met Firebase-data -->
+    </ul>
+  </section>
+</article>
 
-    h1 {
-      color: var(--accent);
-      margin-bottom: 2rem;
-    }
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
+  import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-firestore.js";
 
-    .blog-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-    }
+  const firebaseConfig = {
+    apiKey: "AIzaSyClKhiiSVZ3sj_6dqzxZAT9owaFHfJHrnk",
+    authDomain: "portfolio-lucas-8461a.firebaseapp.com",
+    projectId: "portfolio-lucas-8461a",
+    storageBucket: "portfolio-lucas-8461a.appspot.com",
+    messagingSenderId: "474096039312",
+    appId: "1:474096039312:web:5cee76f8389f9c02e1af15"
+  };
 
-    .blog-card {
-      background: var(--card);
-      border-radius: 1rem;
-      padding: 1.5rem;
-      box-shadow: 0 0 20px rgba(0,0,0,0.3);
-    }
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
 
-    .blog-card img {
-      max-width: 100%;
-      border-radius: 0.5rem;
-      margin-bottom: 1rem;
-    }
+  async function loadBlogs() {
+    const blogList = document.getElementById("blog-list");
+    const querySnapshot = await getDocs(collection(db, "blogs"));
+    querySnapshot.forEach((doc) => {
+      const blog = doc.data();
+      const li = document.createElement("li");
+      li.className = "blog-post-item";
+      li.innerHTML = `
+        <a href="blog-post.html?id=${doc.id}">
+          <figure class="blog-banner-box">
+            <img src="${blog.coverImage || 'https://via.placeholder.com/400x200'}" alt="${blog.title}" loading="lazy">
+          </figure>
+          <div class="blog-content">
+            <div class="blog-meta">
+              <p class="blog-category">Blog</p>
+              <span class="dot"></span>
+              <time datetime="${blog.createdAt}">${new Date(blog.createdAt).toLocaleDateString()}</time>
+            </div>
+            <h3 class="h3 blog-item-title">${blog.title}</h3>
+            <p class="blog-text">${blog.content.substring(0, 100)}...</p>
+          </div>
+        </a>
+      `;
+      blogList.appendChild(li);
+    });
+  }
 
-    .blog-card h3 {
-      color: var(--accent);
-      margin-bottom: 0.5rem;
-    }
-
-    .blog-card p {
-      color: var(--muted);
-    }
-
-    .blog-card time {
-      font-size: 0.85rem;
-      color: #888;
-    }
-  </style>
-</head>
-<body>
-  <h1>Blogoverzicht</h1>
-  <div class="blog-container" id="blogContainer"></div>
-
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
-    import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-firestore.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyClKhiiSVZ3sj_6dqzxZAT9owaFHfJHrnk",
-      authDomain: "portfolio-lucas-8461a.firebaseapp.com",
-      projectId: "portfolio-lucas-8461a",
-      storageBucket: "portfolio-lucas-8461a.appspot.com",
-      messagingSenderId: "474096039312",
-      appId: "1:474096039312:web:5cee76f8389f9c02e1af15"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-
-    async function loadBlogs() {
-      const container = document.getElementById("blogContainer");
-      const querySnapshot = await getDocs(collection(db, "blogs"));
-      querySnapshot.forEach((doc) => {
-        const blog = doc.data();
-        const card = document.createElement("div");
-        card.className = "blog-card";
-        card.innerHTML = `
-          ${blog.coverImage ? `<img src="${blog.coverImage}" alt="Cover">` : ''}
-          <h3>${blog.title}</h3>
-          <time>${new Date(blog.createdAt).toLocaleDateString()}</time>
-          <p>${blog.content}</p>
-        `;
-        container.appendChild(card);
-      });
-    }
-
-    loadBlogs();
-  </script>
-</body>
-</html>
+  loadBlogs();
+</script>
