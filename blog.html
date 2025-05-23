@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blogoverzicht</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Blogoverzicht</h1>
+  <div class="blog-container" id="blogContainer"></div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
+    import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyClKhiiSVZ3sj_6dqzxZAT9owaFHfJHrnk",
+      authDomain: "portfolio-lucas-8461a.firebaseapp.com",
+      projectId: "portfolio-lucas-8461a",
+      storageBucket: "portfolio-lucas-8461a.appspot.com",
+      messagingSenderId: "474096039312",
+      appId: "1:474096039312:web:5cee76f8389f9c02e1af15"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    async function loadBlogs() {
+      const container = document.getElementById("blogContainer");
+      const querySnapshot = await getDocs(collection(db, "blogs"));
+      querySnapshot.forEach((doc) => {
+        const blog = doc.data();
+        const card = document.createElement("div");
+        card.className = "blog-card";
+        card.innerHTML = `
+          ${blog.coverImage ? `<img src="${blog.coverImage}" alt="Cover">` : ''}
+          <h3>${blog.title}</h3>
+          <time>${new Date(blog.createdAt).toLocaleDateString()}</time>
+          <p>${blog.content}</p>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    loadBlogs();
+  </script>
+</body>
+</html>
