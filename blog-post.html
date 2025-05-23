@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blogpost bekijken</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .blog-post {
+      max-width: 800px;
+      margin: 3rem auto;
+      background: #1c1c1c;
+      padding: 2rem;
+      border-radius: 1rem;
+      color: white;
+    }
+    .blog-post img {
+      max-width: 100%;
+      border-radius: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    .blog-post h1 {
+      color: #4A90E2;
+      margin-bottom: 1rem;
+    }
+    .blog-post time {
+      display: block;
+      font-size: 0.9rem;
+      color: #aaa;
+      margin-bottom: 2rem;
+    }
+    .blog-post p {
+      line-height: 1.7;
+    }
+  </style>
+</head>
+<body>
+  <div class="blog-post" id="post"></div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
+    import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyClKhiiSVZ3sj_6dqzxZAT9owaFHfJHrnk",
+      authDomain: "portfolio-lucas-8461a.firebaseapp.com",
+      projectId: "portfolio-lucas-8461a",
+      storageBucket: "portfolio-lucas-8461a.appspot.com",
+      messagingSenderId: "474096039312",
+      appId: "1:474096039312:web:5cee76f8389f9c02e1af15"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    const params = new URLSearchParams(window.location.search);
+    const blogId = params.get("id");
+
+    async function loadBlog() {
+      if (!blogId) {
+        document.getElementById("post").innerHTML = "<p>Geen blog-ID opgegeven.</p>";
+        return;
+      }
+
+      const docRef = doc(db, "blogs", blogId);
+      const docSnap = await getDoc(docRef);
+
+      if (!docSnap.exists()) {
+        document.getElementById("post").innerHTML = "<p>Blogpost niet gevonden.</p>";
+        return;
+      }
+
+      const data = docSnap.data();
+      document.getElementById("post").innerHTML = `
+        ${data.coverImage ? `<img src="${data.coverImage}" alt="${data.title}">` : ''}
+        <h1>${data.title}</h1>
+        <time datetime="${data.createdAt}">${new Date(data.createdAt).toLocaleDateString()}</time>
+        <p>${data.content.replace(/\n/g, '<br>')}</p>
+      `;
+    }
+
+    loadBlog();
+  </script>
+</body>
+</html>
