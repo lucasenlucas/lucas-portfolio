@@ -2,44 +2,45 @@
 <html lang="nl">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Blogpost bekijken</title>
-  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Blog Post</title>
+  <link rel="stylesheet" href="style.css" />
   <style>
-    .blog-post {
-      max-width: 800px;
-      margin: 3rem auto;
-      background: #1c1c1c;
+    body {
+      font-family: sans-serif;
       padding: 2rem;
-      border-radius: 1rem;
-      color: white;
+      background: #0d0f1c;
+      color: #fff;
     }
-    .blog-post img {
+    #blog-post-container img {
       max-width: 100%;
-      border-radius: 0.5rem;
-      margin-bottom: 1rem;
+      border-radius: 12px;
+      margin: 1rem 0;
     }
-    .blog-post h1 {
-      color: #4A90E2;
-      margin-bottom: 1rem;
+    .back-link {
+      display: inline-block;
+      margin-top: 2rem;
+      padding: 0.5rem 1rem;
+      background: #4a90e2;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: background 0.2s;
     }
-    .blog-post time {
-      display: block;
-      font-size: 0.9rem;
-      color: #aaa;
-      margin-bottom: 2rem;
-    }
-    .blog-post p {
-      line-height: 1.7;
+    .back-link:hover {
+      background: #3775c2;
     }
   </style>
 </head>
 <body>
-  <div class="blog-post" id="post"></div>
+  <main>
+    <div id="blog-post-container">Laden...</div>
+    <a href="index.html" class="back-link">← Terug naar overzicht</a>
+  </main>
 
   <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
-    import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-firestore.js";
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
+    import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyClKhiiSVZ3sj_6dqzxZAT9owaFHfJHrnk",
@@ -56,30 +57,28 @@
     const params = new URLSearchParams(window.location.search);
     const blogId = params.get("id");
 
-    async function loadBlog() {
-      if (!blogId) {
-        document.getElementById("post").innerHTML = "<p>Geen blog-ID opgegeven.</p>";
-        return;
+    async function loadBlogPost() {
+      const blogRef = doc(db, "blogs", blogId);
+      const blogSnap = await getDoc(blogRef);
+
+      if (blogSnap.exists()) {
+        const data = blogSnap.data();
+        const timestamp = data.createdAt?.seconds
+          ? new Date(data.createdAt.seconds * 1000)
+          : new Date();
+
+        document.getElementById("blog-post-container").innerHTML = `
+          <h1>${data.title}</h1>
+          <p><em>${timestamp.toLocaleDateString("nl-NL")}</em></p>
+          <img src="${data.coverImage}" alt="Cover image">
+          <p>${data.content}</p>
+        `;
+      } else {
+        document.getElementById("blog-post-container").innerText = "Blogpost niet gevonden.";
       }
-
-      const docRef = doc(db, "blogs", blogId);
-      const docSnap = await getDoc(docRef);
-
-      if (!docSnap.exists()) {
-        document.getElementById("post").innerHTML = "<p>Blogpost niet gevonden.</p>";
-        return;
-      }
-
-      const data = docSnap.data();
-      document.getElementById("post").innerHTML = `
-        ${data.coverImage ? `<img src="${data.coverImage}" alt="${data.title}">` : ''}
-        <h1>${data.title}</h1>
-        <time datetime="${data.createdAt}">${new Date(data.createdAt).toLocaleDateString()}</time>
-        <p>${data.content.replace(/\n/g, '<br>')}</p>
-      `;
     }
 
-    loadBlog();
+    loadBlogPost();
   </script>
 </body>
 </html>
