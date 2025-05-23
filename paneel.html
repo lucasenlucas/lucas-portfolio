@@ -107,6 +107,7 @@
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-auth.js";
     import { getFirestore, collection, getDocs, addDoc } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-firestore.js";
 
     const firebaseConfig = {
@@ -120,6 +121,13 @@
 
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
+    const auth = getAuth(app);
+
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        window.location.href = "lucas.html";
+      }
+    });
 
     async function loadData() {
       const blogList = document.getElementById('blog-list');
@@ -144,9 +152,10 @@
     }
 
     window.addBlog = async () => {
-      const title = document.getElementById('blog-title').value;
-      const content = document.getElementById('blog-content').value;
-      const image = document.getElementById('blog-image').value;
+      const title = document.getElementById('blog-title').value.trim();
+      const content = document.getElementById('blog-content').value.trim();
+      const image = document.getElementById('blog-image').value.trim();
+      if (!title || !content) return alert("Titel en inhoud zijn verplicht");
       await addDoc(collection(db, "blogs"), {
         title,
         content,
@@ -157,11 +166,12 @@
     };
 
     window.addProject = async () => {
-      const title = document.getElementById('project-title').value;
-      const category = document.getElementById('project-category').value;
-      const imageURL = document.getElementById('project-image').value;
-      const link = document.getElementById('project-link').value;
-      const description = document.getElementById('project-desc').value;
+      const title = document.getElementById('project-title').value.trim();
+      const category = document.getElementById('project-category').value.trim();
+      const imageURL = document.getElementById('project-image').value.trim();
+      const link = document.getElementById('project-link').value.trim();
+      const description = document.getElementById('project-desc').value.trim();
+      if (!title || !category || !description) return alert("Titel, categorie en beschrijving zijn verplicht");
       await addDoc(collection(db, "projects"), {
         title,
         category,
