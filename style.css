@@ -1,10 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 :root {
+  --green-accent: hsl(155, 70%, 55%); color: var(--green-accent);
+
     --bg-gradient-onyx: linear-gradient(to bottom right, hsl(240, 1%, 25%) 3%, hsl(0, 0%, 19%) 97%);
     --bg-gradient-jet: linear-gradient(to bottom right, hsla(240, 1%, 18%, .251) 3%, hsla(240, 2%, 11%, 0) 100%), hsl(240, 2%, 13%);
     --bg-gradient-yellow1: linear-gradient(to bottom right, hsl(45, 100%, 71%) 0%, hsla(36, 100%, 69%, 0) 50%);
-    --bg-gradient-yellow2: linear-gradient(135deg, hsla(45, 100%, 71%, .251) 0%, hsla(35, 100%, 68%, 0) 59.86%), hsl(240, 2%, 13%);
+  --text-gradient-yellow: linear-gradient(to right, hsl(155, 70%, 55%), hsl(145, 70%, 50%));
+--orange-yellow-crayola: hsl(155, 70%, 55%);
+--vegas-gold: hsl(145, 60%, 45%);
+
     --border-gradient-onyx: linear-gradient(to bottom right, hsl(0, 0%, 25%) 0%, hsla(0, 0%, 25%, 0) 50%);
     --text-gradient-yellow: linear-gradient(to right, hsl(45, 100%, 72%), hsl(35, 100%, 68%));
 
@@ -15,7 +20,15 @@
     --smoky-black: hsl(0, 0%, 7%);
     --white1: hsl(0, 0%, 100%);
     --white2: hsl(0, 0%, 98%);
-    --orange-yellow-crayola: hsl(45, 100%, 72%);
+ --text-gradient-yellow: linear-gradient(to right, hsl(155, 70%, 55%), hsl(145, 70%, 50%));
+--orange-yellow-crayola: hsl(155, 70%, 55%);
+--vegas-gold: hsl(145, 60%, 45%);
+
+--text-gradient-yellow: linear-gradient(to right, hsl(155, 70%, 55%), hsl(145, 70%, 50%));
+--orange-yellow-crayola: hsl(155, 70%, 55%);
+--vegas-gold: hsl(145, 60%, 45%);
+
+
     --vegas-gold: hsl(45, 54%, 58%);
     --light-gray: hsl(0, 0%, 84%);
     --light-gray70: hsla(0, 0%, 84%, .7);
@@ -1462,3 +1475,153 @@ textarea.form-input {
 
     .timeline-text { max-width: 700px; }
 }
+.blog-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.blog-popup.hidden {
+  display: none;
+}
+
+.popup-content {
+  background: #1e1e2f;
+  color: white;
+  padding: 2rem;
+  border-radius: 10px;
+  max-width: 600px;
+  max-height: 80vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.close-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  color: white;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  line-height: 1;
+}
+.blog-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.blog-popup.hidden {
+  display: none;
+}
+
+.popup-content {
+  background: #1e1e2f;
+  color: white;
+  padding: 2rem;
+  border-radius: 12px;
+  max-width: 800px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
+  width: 90%;
+}
+
+.popup-content h3 {
+  margin-top: 1rem;
+  font-size: 2rem;
+}
+
+.popup-content p {
+  margin-top: 1rem;
+  line-height: 1.6;
+}
+
+.popup-image-box {
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.popup-image-box img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 8px;
+}
+
+.close-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  color: white;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  line-height: 1;
+}
+.project-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.project-popup.hidden {
+  display: none;
+}
+
+.popup-content {
+  background: #1e1e2f;
+  color: white;
+  padding: 2rem;
+  border-radius: 12px;
+  max-width: 800px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  width: 90%;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
+}
+
+.popup-image-box img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.close-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  color: white;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+}
+color: var(--orange-yellow-crayola);
