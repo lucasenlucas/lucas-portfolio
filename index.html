@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta property="og:title" content="Lucas — Portfolio" />
+  <meta property="og:description" content="Webdev • Ethical hacker • Maker. Speelse, snelle webapps en AI-educatie." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/logo.svg" />
+  <meta name="theme-color" content="#50C878" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lucas — Portfolio</title>
+  <meta name="description" content="Portfolio van Lucas. Projecten, over mij, blog en contact." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="icon" href="assets/logo.svg">
+</head>
+<body>
+  <div class="wrapper">
+    <header class="site-header">
+      <div class="brand">
+        <img src="assets/logo.svg" alt="" width="28" height="28" />
+        <span class="brand-text">Lucas</span>
+      </div>
+      <div class="actions">
+        <button id="themeToggle" class="icon-btn" aria-label="Thema wisselen">🌗</button>
+        <a class="btn" data-open="contact" href="#contact">Contact</a>
+      </div>
+    </header>
+
+    <div class="browser" role="application" aria-label="Browser UI">
+      <div class="browser-toolbar">
+        <div class="traffic-lights" aria-hidden="true">
+          <span class="dot red"></span>
+          <span class="dot yellow"></span>
+          <span class="dot green"></span>
+        </div>
+        <div class="tabs" role="tablist" aria-label="Portfolio tabs">
+          <button class="tab active" data-target="home" role="tab" aria-controls="home" aria-selected="true">lucas.home</button>
+          <button class="tab" data-target="projects" role="tab" aria-controls="projects" aria-selected="false">lucas.projects</button>
+          <button class="tab" data-target="about" role="tab" aria-controls="about" aria-selected="false">lucas.about</button>
+          <button class="tab" data-target="blog" role="tab" aria-controls="blog" aria-selected="false">lucas.blog</button>
+          <button class="tab" data-target="research" role="tab" aria-controls="research" aria-selected="false">lucas.research</button>
+          <button class="tab" data-target="contact" role="tab" aria-controls="contact" aria-selected="false">lucas.contact</button>
+        </div>
+        <div class="urlbar" aria-live="polite" aria-atomic="true">
+          <span class="muted">https://</span><span id="url">lucas.home</span>
+        </div>
+      </div>
+
+      <div class="browser-content">
+        <section id="home" class="panel active" role="tabpanel" tabindex="0">
+          <div class="hero">
+            <div class="hero-text"><div id="homeContent" class="md in-view"></div></div>
+            <div class="hero-art">
+              <img src="assets/hero-bg.svg" alt="" />
+            </div>
+          </div>
+        </section>
+
+        <section id="projects" class="panel" role="tabpanel" tabindex="0">
+          <div class="toolbar">
+            <input id="projectSearch" placeholder="Zoek projecten… (druk /)" aria-label="Zoek projecten">
+            <div id="tagFilters" class="tag-filters" role="group" aria-label="Filter op tag"></div>
+          </div>
+          <h2>Projecten</h2>
+          <p class="muted">Een snelle greep. Pas dit eenvoudig aan in <code>index.html</code>.</p>
+          <div id="projectsGrid" class="grid">
+            <article class="card">
+              <h3>Codeblocks</h3>
+              <p>Educatieve tools voor scholen. Front-end + Firebase.</p>
+              <div class="tags"><span>HTML</span><span>JS</span><span>Firebase</span></div>
+            </article>
+            <article class="card">
+              <h3>Koffiecafé Bot</h3>
+              <p>Discord moderatie + logs + minigames. </p>
+              <div class="tags"><span>Node.js</span><span>Discord.js</span></div>
+            </article>
+            <article class="card">
+              <h3>Scanlet</h3>
+              <p>API recon CLI: endpoints, docs & checks.</p>
+              <div class="tags"><span>Python</span><span>Security</span></div>
+            </article>
+          </div>
+        
+<div id="projectModal" class="modal" aria-hidden="true" role="dialog" aria-modal="true">
+  <div class="modal-backdrop"></div>
+  <div class="modal-content" role="document">
+    <button class="modal-close" aria-label="Sluiten">✕</button>
+    <div class="modal-body">
+      <h3 id="modalTitle"></h3>
+      <div class="meta small" id="modalMeta"></div>
+      <div id="modalMd" class="md"></div>
+    </div>
+  </div>
+</div>
+
+        <section id="about" class="panel" role="tabpanel" tabindex="0">
+          <h2>Over mij</h2>
+          <div id="aboutContent" class="md"></div>
+        </section>
+
+        <section id="blog" class="panel" role="tabpanel" tabindex="0">
+          <h2>Blog</h2>
+          <p class="muted">Posts worden hieronder dynamisch geladen uit <code>data/posts.json</code>.</p>
+<div id="blogList" class="grid"></div>
+          <div class="card note">
+            <p><strong>Idee:</strong> korte post-achtige case studies van 150–300 woorden per project. Snelle visuals, weinig tekst.</p>
+          </div>
+        
+<div id="postModal" class="modal" aria-hidden="true" role="dialog" aria-modal="true">
+  <div class="modal-backdrop"></div>
+  <div class="modal-content" role="document">
+    <button class="modal-close" aria-label="Sluiten">✕</button>
+    <div class="modal-body">
+      <h3 id="postTitle"></h3>
+      <div class="meta small" id="postMeta"></div>
+      <div id="postMd" class="md"></div>
+    </div>
+  </div>
+</div>
+
+        <section id="contact" class="panel" role="tabpanel" tabindex="0">
+          <h2>Contact</h2>
+          <form class="contact-form" action="mailto:placeholder@example.com" method="post" enctype="text/plain">
+            <label>
+              Naam
+              <input required name="naam" placeholder="Jouw naam">
+            </label>
+            <label>
+              E-mail
+              <input required type="email" name="email" placeholder="jij@voorbeeld.nl">
+            </label>
+            <label>
+              Bericht
+              <textarea required name="bericht" rows="5" placeholder="Waarmee kan ik helpen?"></textarea>
+            </label>
+            <button class="btn primary" type="submit">Versturen</button>
+          </form>
+          <p class="muted small">Wil je liever DM? Zet hier jouw socials neer.</p>
+        </section>
+      </div>
+    </div>
+
+    <footer class="site-footer">
+      <p>© <span id="year"></span> Lucas. Gebouwd met HTML/CSS/JS. <span class="separator">•</span> <a href="#" data-open="about">Over</a> <span class="separator">•</span> <a href="#" data-open="projects">Projecten</a></p>
+    </footer>
+  </div>
+
+  <script type="module" src="js/app.js"></script>
+  <script src="js/config.example.js"></script>
+</body>
+</html>

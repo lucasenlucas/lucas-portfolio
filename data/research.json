@@ -1,0 +1,13 @@
+[
+  {
+    "title": "Security audit: voorbeeldplatform",
+    "date": "2025-07-15",
+    "tags": [
+      "Security",
+      "Audit",
+      "Web"
+    ],
+    "excerpt": "Methodiek, bevindingen en aanbevelingen bij een educatieve pentest-case.",
+    "content": "### Scope\n- Subdomeinen, API, auth flows\n\n### Bevindingen (samenvatting)\n- CORS te ruim\n- Rate limiting ontbreekt\n\n### Aanpak\n1. Recon\n2. Testcases\n3. Responsible disclosure"
+  }
+]
