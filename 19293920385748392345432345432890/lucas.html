@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lucas Admin Panel</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    body { max-width: 1100px; margin: 24px auto; padding: 0 16px; }
+    .admin { display: grid; grid-template-columns: 240px 1fr; gap: 16px; }
+    .sidebar { border: 1px solid var(--border); border-radius: 12px; padding: 12px; background: var(--card); }
+    .main { border: 1px solid var(--border); border-radius: 12px; padding: 16px; background: var(--card); }
+    .sidebar h3 { margin-top: 0; }
+    .stack { display: grid; gap: 10px; }
+    .row { display: grid; gap: 8px; }
+    .row.inline { grid-auto-flow: column; grid-auto-columns: 1fr; }
+    .items { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 10px; margin-top: 8px; }
+    .item { border: 1px solid var(--border); border-radius: 10px; padding: 10px; background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(0,0,0,.05)); }
+    textarea { min-height: 140px; }
+    .md-preview { border: 1px dashed var(--border); border-radius: 10px; padding: 12px; background: rgba(255,255,255,.03); }
+    .pill { font-size: 12px; border: 1px dashed var(--border); padding: 4px 8px; border-radius: 999px; color: var(--muted); }
+    .tag-input { display: flex; gap: 6px; flex-wrap: wrap; }
+    .tag-input input { flex: 1; min-width: 120px; }
+    .actions { display: flex; gap: 8px; justify-content: flex-end; }
+    .notice { font-size: 12px; color: var(--muted); }
+    .danger { color: #ff6b6b; }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="brand"><img src="assets/logo.svg" width="28" height="28" /><span class="brand-text">Lucas Admin</span></div>
+    <div class="actions">
+      <a class="btn" href="index.html">Terug naar site</a>
+    </div>
+  </header>
+
+  <div class="admin">
+    <aside class="sidebar">
+      <h3>Panel</h3>
+      <div class="stack">
+        <button class="btn" data-view="home">Home-tekst</button>
+        <button class="btn" data-view="about">About-tekst</button>
+        <button class="btn" data-view="projects">Projecten</button>
+        <button class="btn" data-view="posts">Blog</button>
+        <button class="btn" data-view="research">Onderzoeken</button>
+        <hr style="border-color: var(--border); opacity:.3;">
+        <div class="row">
+          <input id="email" placeholder="E-mail" />
+          <input id="pass" placeholder="Wachtwoord" type="password" />
+          <button class="btn primary" id="loginBtn">Inloggen</button>
+          <button class="btn" id="logoutBtn">Uitloggen</button>
+          <span class="notice">Login vereist voor opslaan (Firebase).</span>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <div id="view-home" class="view stack">
+        <h2>Home-tekst (Markdown)</h2>
+        <textarea id="homeMd" placeholder="# Welkom
+Intro..."></textarea>
+        <div class="md-preview" id="homePreview"></div>
+        <div class="actions"><button class="btn primary" id="saveHome">Opslaan</button></div>
+      </div>
+
+      <div id="view-about" class="view stack" style="display:none">
+        <h2>About-tekst (Markdown)</h2>
+        <textarea id="aboutMd" placeholder="## Over mij
+..."></textarea>
+        <div class="md-preview" id="aboutPreview"></div>
+        <div class="actions"><button class="btn primary" id="saveAbout">Opslaan</button></div>
+      </div>
+
+      <div id="view-projects" class="view stack" style="display:none">
+        <h2>Projecten</h2>
+        <div class="row inline">
+          <input id="pTitle" placeholder="Titel" />
+          <input id="pType" placeholder="Type (bijv. Webapp)" />
+          <input id="pOrder" placeholder="Volgorde (getal)" type="number" />
+        </div>
+        <div class="tag-input">
+          <input id="pTags" placeholder="Tags (komma-gescheiden, bijv. HTML, CSS, JS, Firebase)" />
+        </div>
+        <textarea id="pExcerpt" placeholder="Korte uitleg (max 220 tekens)" maxlength="220"></textarea>
+        <textarea id="pMd" placeholder="**Markdown** beschrijving (volledige content)"></textarea>
+        <div class="md-preview" id="pPreview"></div>
+        <div class="actions">
+          <button class="btn" id="pClear">Leegmaken</button>
+          <button class="btn primary" id="pSave">Opslaan</button>
+        </div>
+        <h3>Bestaande projecten</h3>
+        <div class="items" id="pItems"></div>
+      </div>
+
+      <div id="view-posts" class="view stack" style="display:none">
+        <h2>Blog</h2>
+        <div class="row inline">
+          <input id="bTitle" placeholder="Titel" />
+          <input id="bDate" type="date" />
+        </div>
+        <div class="tag-input">
+          <input id="bTags" placeholder="Tags (komma-gescheiden)" />
+        </div>
+        <textarea id="bExcerpt" placeholder="Korte intro / samenvatting"></textarea>
+        <textarea id="bMd" placeholder="Lange content in Markdown"></textarea>
+        <div class="md-preview" id="bPreview"></div>
+        <div class="actions">
+          <button class="btn" id="bClear">Leegmaken</button>
+          <button class="btn primary" id="bSave">Opslaan</button>
+        </div>
+        <h3>Bestaande posts</h3>
+        <div class="items" id="bItems"></div>
+      </div>
+
+      <div id="view-research" class="view stack" style="display:none">
+        <h2>Onderzoeken</h2>
+        <div class="row inline">
+          <input id="rTitle" placeholder="Titel" />
+          <input id="rDate" type="date" />
+        </div>
+        <div class="tag-input">
+          <input id="rTags" placeholder="Tags (komma-gescheiden)" />
+        </div>
+        <textarea id="rExcerpt" placeholder="Samenvatting"></textarea>
+        <textarea id="rMd" placeholder="Lange content in Markdown"></textarea>
+        <div class="md-preview" id="rPreview"></div>
+        <div class="actions">
+          <button class="btn" id="rClear">Leegmaken</button>
+          <button class="btn primary" id="rSave">Opslaan</button>
+        </div>
+        <h3>Bestaande onderzoeken</h3>
+        <div class="items" id="rItems"></div>
+      </div>
+    </main>
+  </div>
+
+  <script type="module" src="js/lucas.js"></script>
+  <script src="js/config.example.js"></script>
+</body>
+</html>
